@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Add{% endblock title %}
+{% block body %}
+
+  
+    <form method="post" class="p-5 m-5">
+      {% csrf_token %}
+        
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" class="form-control" id="title" name="title" required><br>
+      </div>
+      
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea id="description" class="form-control" name="description" required></textarea><br>
+      </div>
+
+      <div class="form-group">
+        <label for="due_date">Start Date:</label>
+        <input type="date" id="start_date" class="form-control" name="start_date" required><br>
+      </div>
+
+      <div class="form-group">
+        <label for="due_date">End Date:</label>
+        <input type="date" id="end_date" class="form-control" name="end_date" required><br>
+      </div>
+
+      <div class="form-group">
+        <label for="priority">Priority:</label>
+        <select class="form-select" name="priority" required>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </div>
+      <br>
+        
+      <div class="form-group">
+        <label for="status">Status:</label>
+        <select class="form-select" id="status" name="status" required>
+          <option value="pending">Pending</option>
+          <option value="in_progress">In Progress</option>
+          <option value="completed">Completed</option>
+        </select>
+      </div>
+      <br>
+
+      <input type="submit" class="btn btn-dark" value="Create Task">
+    </form>
+  
+
+{% endblock body %}

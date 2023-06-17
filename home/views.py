@@ -15,11 +15,11 @@ def home(request):
 def register(request):
 
     if request.method == "POST":
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        email = request.POST.get('email')
-        username = request.POST.get('username')
-        password = request.POST.get('password')
+        first_name = request.POST.get['first_name']
+        last_name = request.POST.get['last_name']
+        email = request.POST.get['email']
+        username = request.POST.get['username']
+        password = request.POST.get['password']
         
         
         user = Register.objects.create(email=email, first_name=first_name, last_name=last_name, username=username)

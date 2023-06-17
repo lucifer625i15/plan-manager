@@ -57,7 +57,10 @@ ROOT_URLCONF = 'plan_manager.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS':[os.path.join(BASE_DIR, '/home/templates'),],
+        'DIRS':[
+            os.path.join(BASE_DIR, '/home/templates'),
+            os.path.join(BASE_DIR, '/task_manager/templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
