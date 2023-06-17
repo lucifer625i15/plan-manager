@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate,logout,login
 # Create your views here.
 
 def home(request):
+
     if request.user.is_anonymous:
          
         return render(request, 'home.html')
@@ -15,14 +16,11 @@ def home(request):
 def register(request):
 
     if request.method == "POST":
-        first_name = request.POST.get['first_name']
-        last_name = request.POST.get['last_name']
-        email = request.POST.get['email']
-        username = request.POST.get['username']
-        password = request.POST.get['password']
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         
         
-        user = Register.objects.create(email=email, first_name=first_name, last_name=last_name, username=username)
+        user = User.objects.create(password=password, username=username)
         user.set_password(password)
         user.save()
         return redirect('/login/')
@@ -32,16 +30,16 @@ def register(request):
 
 def logoutUser(request):
     logout(request)
-    return redirect("/login")
+    return redirect("/")
 
 def loginUser(request):
 
     if request.method == "POST":
-        email= request.POST.get('email')
+        username= request.POST.get('username')
         password = request.POST.get('password')
         
-        user = authenticate(email=email, password=password)
-        print(user,email, password)
+        user = authenticate(username=username, password=password)
+        print(user,username, password)
         if user is not None:
             # A backend authenticated the credentials
             login(request, user)
@@ -56,5 +54,7 @@ def loginUser(request):
     return render(request,'login.html')
 
 def dashboard(request):
-
-    return render(request, "dashboard.html")
+    if not request.user.is_anonymous:
+        return render(request, "dashboard.html")
+    else:
+        return redirect("/")

@@ -38,8 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # 'leaflet',
     'home',
     'task_manager',
+    'travel_manager',
+    'plan_manager.models',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +56,11 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'plan_manager.urls'
+
+# LEAFLET_CONFIG = {
+#     'DEFAULT_CENTER': (51.505, -0.09),  # Default map center coordinates
+#     'DEFAULT_ZOOM': 13,  # Default map zoom level
+# }
 
 TEMPLATES = [
     {

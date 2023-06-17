@@ -5,14 +5,12 @@ from .models import Task
 
 # Create your views here.
 
-def home(request):
 
-    return render(request, 'index.html')
 
 def create_task(request):
     if request.method == 'POST':
         title = request.POST['title']
-        desc = request.POST['description']
+        desc = request.POST['desc']
         start_date = request.POST['start_date']
         end_date = request.POST['end_date']
         priority = request.POST['priority']
@@ -30,7 +28,7 @@ def create_task(request):
 
         # return redirect('task_list')  # Redirect to the task list page after creating the task
 
-    return render(request, 'add.html')
+    return render(request, 'New_task.html')
 
 
 def task_update(request, id):
@@ -52,3 +50,9 @@ def task_delete(request, id):
         task.delete()
         return redirect('task_list')
     return render(request, 'task_delete.html', {'task': task})
+
+def task_list(request, id):
+
+    tasks = Task.objects.filter(user= request.user)
+      
+    return render(request ,'task_list.html', {'tasks':tasks})
