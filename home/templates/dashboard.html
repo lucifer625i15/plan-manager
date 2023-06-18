@@ -64,7 +64,7 @@
                 {% endfor %}
             </div>
             <div class="pb-5 pt-3"><h2>Travel Manager</h2></div>
-            {% comment %} <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 {% for user in tasks %}
                       <div class="col">
                   <div class="card shadow-sm" >
@@ -84,7 +84,7 @@
                   </div>
                 </div>
                 {%endfor%}
-            </div> {% endcomment %}
+            </div>
             <div class="pb-5 pt-3"><h2>Event Manager</h2></div>
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                 {% for event in events %}
@@ -95,9 +95,9 @@
                                     <div class="mb-1">
                                     <h5 class="card-title">{{event.title}}</h5>
                                     </div>
-                                    <p class="card-text">{{user.desc}}</p>
+                                    <p class="card-text">{{event.desc}}</p>
                                     </div>
-                                    <small class="text-muted">{{user.date}}</small>
+                                    <small class="text-muted">{{event.ate}}</small>
                                     <strong>{{user.priority}}</strong>
                                     <strong>{{user.status}}</strong>
                                 </div>

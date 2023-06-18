@@ -12,17 +12,16 @@ def create_event(request):
     if request.method == 'POST':
         title = request.POST.get('title')
         desc = request.POST.get('desc')
-        start_date = request.POST.get('start_date')
-        end_date = request.POST.get('end_date')
-        priority = request.POST.get('priority')
-        status = request.POST.get('status')
+        date = request.POST.get('date')
+        location = request.POST.get('location')
+
 
         if Event.objects.filter(title=title).exists():
             return HttpResponse("Title already exists") 
         
         try:
-            task = Event.objects.create(user=user,title=title, desc=desc,start_date=start_date,end_date=end_date,priority=priority,status=status)
-            task.save()
+            event = Event.objects.create(user=user,title=title, desc=desc,date=date, location=location)
+            event.save()
         
         except ValidationError as e:
             return HttpResponse(str(e))

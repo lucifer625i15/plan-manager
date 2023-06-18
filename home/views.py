@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.models import User
 from expense_tracker.models import Expense
-from travel_manager.models import Travel
-from event_manager.models import Expense
+from travel_manager.models import *
+from task_manager.models import Task
+from event_manager.models import Event
 from django.contrib.auth import authenticate,logout,login
 
 # Create your views here.
@@ -58,6 +59,9 @@ def loginUser(request):
 def dashboard(request):
 
     users = request.user
-    expenses = Expense.objects.filter(user = users)
-    return render(request, "dashboard.html", {'expenses':expenses})
+    expenses = Expense.objects.all()
+    events = Event.objects.all()
+    tasks = Task.objects.all()
+    travels = Travel.objects.all()
+    return render(request, "dashboard.html", {'expenses':expenses, 'events': events, 'tasks':tasks, 'travels':travels})
         

@@ -1,52 +1,60 @@
-import requests
-from django.shortcuts import render
+from django.forms import ValidationError
+from django.http import HttpResponse
+from django.contrib.auth.models import User
+from django.shortcuts import render,  redirect, get_object_or_404
+from .models import Travel
 
 # Create your views here.
 
-def home(request):
-    return render(request, 'index.html')
 
-from .models import Location
 
-def live_location(request):
-    latest_location = Location.objects.latest('timestamp')  # Assuming you have a timestamp field in Location model
-    context = {'latest_location': latest_location}
-    return render(request, 'live_location.html', context)
+def create_travel(request):
+    user = request.user
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        desc = request.POST.get('desc')
+        start_date = request.POST.get('start_date')
+        end_date = request.POST.get('end_date')
+        priority = request.POST.get('priority')
+        status = request.POST.get('status')
 
-def find_hotels(request):
-    # Define the coordinates that represent the path
-    # Replace these coordinates with your own path coordinates
-    path_coordinates = [
-        (latitude1, longitude1),
-        (latitude2, longitude2),
-        # Add more coordinates as needed
-    ]
+        if travel.objects.filter(title=title).exists():
+            return HttpResponse("Title already exists") 
+        
+        try:
+            travel = travel.objects.create(user=user,title=title, desc=desc,start_date=start_date,end_date=end_date,priority=priority,status=status)
+            travel.save()
+        
+        except ValidationError as e:
+            return HttpResponse(str(e))
+
+        # return redirect('travel_list')  # Redirect to the travel list page after creating the travel
+
+    return render(request, 'new_travel.html')
+
+
+def travel_update(request):
+    travel = get_object_or_404(Travel)
+    if request.method == 'POST':
+        title = request.POST.get('title')
+        desc = request.POST.get('description')
+        priority = request.POST.get('priority')
+        travel.title = title
+        travel.desc = desc
+        travel.priority = priority
+        travel.save()
+        return redirect('travel_list')
+    return render(request, 'travel_update.html', {'travel': travel})
+
+def travel_delete(request, travel_id):
+    travel = get_object_or_404(travel, id=travel_id)
+    if request.method == 'POST':
+        travel.delete()
+        return redirect('/travel_list')
+    return render(request, 'travel_delete.html', {'travel': travel})
+
+def travel_list(request):
+
+    travels = travel.objects.filter(user= request.user)
     
-    # Prepare the Overpass API query
-    query = f'[out:json];(node["tourism"="hotel"]({",".join([f"{lat},{lon}" for lat, lon in path_coordinates])}););out;'
-
-    # Send the API request to Overpass API
-    response = requests.get(f'https://api.opentripmap.com/0.1/en/amenity/by_bbox?bbox={min(lon for lat, lon in path_coordinates)},{min(lat for lat, lon in path_coordinates)},{max(lon for lat, lon in path_coordinates)},{max(lat for lat, lon in path_coordinates)}&kinds=hotels&format=json')
-
-    if response.status_code == 200:
-        # Parse the API response and extract hotel information
-        hotels = []
-        data = response.json()
-        for feature in data['features']:
-            properties = feature['properties']
-            name = properties['name']
-            address = properties['address']
-            rating = properties['rate']
-            hotels.append({
-                'name': name,
-                'address': address,
-                'rating': rating
-            })
-
-        # Pass the hotel data to the template
-        context = {'hotels': hotels}
-        return render(request, 'hotel_list.html', context)
-    else:
-        # Handle API request error
-        error_message = f"Error occurred while retrieving hotels: {response.status_code}"
-        return render(request, 'error.html', {'error_message': error_message})
+    return render(request ,'travel_list.html', {'travels':travels})
