@@ -62,6 +62,6 @@ def dashboard(request):
     expenses = Expense.objects.all()
     events = Event.objects.all()
     tasks = Task.objects.all()
-    travels = Travel.objects.all()
-    return render(request, "dashboard.html", {'expenses':expenses, 'events': events, 'tasks':tasks, 'travels':travels})
+    # travels = Travel.objects.all()
+    return render(request, "dashboard.html", {'expenses':expenses, 'events': events, 'tasks':tasks})
         

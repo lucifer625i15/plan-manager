@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'home',
     'task_manager',
-    # 'travel_manager',
+    'travel_manager',
     'event_manager',
     'expense_tracker',
 ]
@@ -65,7 +65,7 @@ TEMPLATES = [
         'DIRS':[
             os.path.join(BASE_DIR, '/home/templates'),
             os.path.join(BASE_DIR, '/task_manager/templates'),
-            # os.path.join(BASE_DIR, '/travel_manager/templates'),
+            os.path.join(BASE_DIR, '/travel_manager/templates'),
             os.path.join(BASE_DIR, '/event_manager/templates'),
             os.path.join(BASE_DIR, '/expense_tracker/templates'),
         ],
