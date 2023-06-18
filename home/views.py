@@ -1,12 +1,13 @@
-from django.shortcuts import render, redirect
-
-from .models import *
+from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.auth.models import User
+from expense_tracker.models import Expense
+from travel_manager.models import Travel
+from event_manager.models import Expense
 from django.contrib.auth import authenticate,logout,login
 
 # Create your views here.
 
 def home(request):
-
     if request.user.is_anonymous:
          
         return render(request, 'home.html')
@@ -16,11 +17,12 @@ def home(request):
 def register(request):
 
     if request.method == "POST":
+        name = request.POST.get('name')
         username = request.POST.get('username')
         password = request.POST.get('password')
         
         
-        user = User.objects.create(password=password, username=username)
+        user = User.objects.create(password=password, name=name, username=username)
         user.set_password(password)
         user.save()
         return redirect('/login/')
@@ -30,7 +32,7 @@ def register(request):
 
 def logoutUser(request):
     logout(request)
-    return redirect("/")
+    return redirect("/login")
 
 def loginUser(request):
 
@@ -54,7 +56,8 @@ def loginUser(request):
     return render(request,'login.html')
 
 def dashboard(request):
-    if not request.user.is_anonymous:
-        return render(request, "dashboard.html")
-    else:
-        return redirect("/")
+
+    users = request.user
+    expenses = Expense.objects.filter(user = users)
+    return render(request, "dashboard.html", {'expenses':expenses})
+        

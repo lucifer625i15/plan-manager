@@ -22,8 +22,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('task/', include('task_manager.urls')),
     path('', include('home.urls')),
+    path('task/', include('task_manager.urls')),
+    path('travel/', include('travel_manager.urls')),
+    path('expense/', include('expense_tracker.urls')),
 ] 
 
 # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

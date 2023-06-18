@@ -1,4 +1,4 @@
-{% extends "dash.html" %}
+{% extends "base.html" %}
 
 {% block body %}
   {% load static %}
@@ -7,25 +7,26 @@
       
         <!-- Latest Posts -->
       <main class="posts-listing col-lg-8"> 
-        <div class="album py-3 bg-light">
+        <div class="album py-4 bg-light">
           <div class="container align-items-center">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-              {% for user in tasks %}
+              {% for task in tasks %}
                 <div class="col">
                   <div class="card shadow-sm" >
-                    <img src="media/{{user.image}}" style="height: 50; width: 50;" >
-                    <div class="card-body">
-                      <h5 class="card-title">{{user.title}}</h5>
-                      <p class="card-text">{{user.desc|slice:80}}</p>
-                      <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-sm btn-outline-secondary"> <a href="/post/{{user.id}}">View</a></button>
-                        </div>
-                        <small class="text-muted">{{user.event_date}}</small>
+                    <div class="card" style="width: 18rem;">
+                      <div class="card-body">
+                        <div class= "mb-3">
+                          <h5 class="card-title">{{task.title}}</h5><i class="bi bi-pencil-square"></i>
+                          <h6 class="card-subtitle mb-2 text-muted">{{task.priority}}</h6>
+                          <h6 class="card-subtitle mb-2 text-muted">{{task.status}}</h6>
+                          <p class="card-text">{{task.desc}}</p>
+                          </div>
                       </div>
                     </div>
+                    
                   </div>
                 </div>
+
                 
                 
               {% endfor %}

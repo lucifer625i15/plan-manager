@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Add{% endblock title %}
+{% block body %}
+
+  
+    <form method="post" class="p-5 m-5">
+      {% csrf_token %}
+        
+      <div class="form-group">
+        <label for="Catagory">Category</label>
+        <input type="text" class="form-control" id="Catagory" name="category" required><br>
+      </div>
+      
+      <div class="form-group">
+        <label for="amount">Amount</label>
+        <input type="number" class="form-control" id="amount" name="amount" required><br>
+      </div>
+
+      <div class="form-group">
+        <label for="date">Date</label>
+        <input type="date" id="date" class="form-control" name="date" required><br>
+      </div>
+
+
+      <input type="submit" class="btn btn-dark" value="Create Task">
+    </form>
+  
+
+{% endblock body %}

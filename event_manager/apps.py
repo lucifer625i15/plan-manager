@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class ExpenceTrackerConfig(AppConfig):
+class EventManagerConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'expence_tracker'
+    name = 'event_manager'

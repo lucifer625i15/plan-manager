@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Add{% endblock title %}
+{% block body %}
+
+  
+    <form method="post" class="p-5 m-5">
+      {% csrf_token %}
+        
+      <div class="form-group">
+        <label for="title">Title:</label>
+        <input type="text" class="form-control" id="title" name="title" required><br>
+      </div>
+      
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea id="description" class="form-control" name="description" required></textarea><br>
+      </div>
+      <div class="form-group">
+        <label for="location">Location:</label>
+        <input type="text" id="location" class="form-control" name="location" required>
+      </div>
+
+      <div class="form-group">
+        <label for="date">End Date:</label>
+        <input type="date" id="date" class="form-control" name="date" required><br>
+      </div>
+
+     
+
+      <input type="submit" class="btn btn-dark" value="Create Task">
+    </form>
+  
+
+{% endblock body %}

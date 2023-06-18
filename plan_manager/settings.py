@@ -38,12 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'leaflet',
     'home',
+    # 'leaflet',
     'task_manager',
     'travel_manager',
-    'plan_manager.models',
+    'event_manager',
+    'expense_tracker',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -57,10 +59,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'plan_manager.urls'
 
-# LEAFLET_CONFIG = {
-#     'DEFAULT_CENTER': (51.505, -0.09),  # Default map center coordinates
-#     'DEFAULT_ZOOM': 13,  # Default map zoom level
-# }
 
 TEMPLATES = [
     {
@@ -68,6 +66,9 @@ TEMPLATES = [
         'DIRS':[
             os.path.join(BASE_DIR, '/home/templates'),
             os.path.join(BASE_DIR, '/task_manager/templates'),
+            os.path.join(BASE_DIR, '/travel_manager/templates'),
+            os.path.join(BASE_DIR, '/event_manager/templates'),
+            os.path.join(BASE_DIR, '/expense_tracker/templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -135,3 +136,4 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
